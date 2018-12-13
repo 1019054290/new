@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			class Animal{
+				constructor(){
+					this.type="animal"
+				}
+				say(say){
+					console.log(this.type+"  says  "+say)
+				}
+			}
+			let animal=new Animal();
+			animal.say("你好");
+			
+			class Cat extends Animal{
+				constructor(){
+					super()
+					this.type="cat"
+				}
+			}
+			let cat=new Cat();
+			cat.say("大家好")
+//			"class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便的多"
+//			" ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this"
+		</script>
+	</body>
+</html>

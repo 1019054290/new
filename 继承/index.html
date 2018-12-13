@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//定一个动物类
+			function Animal() {
+				this.type = "动物";
+			}
+			function Cat(){
+				
+			}
+			Cat.prototype=new Animal();
+			Cat.prototype.constructor=Cat;
+			var cat=new Cat();
+			alert(cat.type)
+			
+//			function Cat(name,color){
+//				Animal.apply(this);
+//				this.name=name;
+//				this.color=color;
+//			}
+//			var cat=new Cat();
+//			console.log(cat.type)
+			
+		</script>
+	</body>
+
+</html>

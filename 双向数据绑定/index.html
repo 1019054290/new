@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" / id="enterValue">
+		<span>输入的值是：</span>
+		<span id="returnName"></span>
+		<script>
+			var obj={},
+			textIpnut=document.getElementById("enterValue"),
+			textSpan=document.getElementById("returnName");
+			Object.defineProperty(obj,"foo",{
+				set:function(newValue){
+					textIpnut.value=newValue;
+					textSpan.innerHTML=newValue;
+				}
+			});
+			textIpnut.addEventListener("keyup",function(e){
+				obj.foo=e.target.value;
+			})
+			
+		</script>
+	</body>
+</html>

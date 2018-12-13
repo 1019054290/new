@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box {
+				width: 300px;
+				height: 300px;
+				background: red;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<input type="button" id="btn" value="语言" />
+		<div id="box"></div>
+		<script type="text/javascript">
+			window.onload = function() {
+				var btn = document.getElementById('btn');
+				var box = document.getElementById('box');
+				btn.onclick = function(ev) {
+					var oEvent = ev || event;
+					box.style.display = 'block';
+					//oEvent.cancelBubble = true;//高版本浏览器 
+					stopBubble(oEvent);
+					//在低版本的chrome和firefox浏览器中需要兼容性处理 
+					//高版本chrome和firefox浏览器直接使用上面这行代码即可 
+				}
+				document.onclick = function() {
+					box.style.display = 'none';
+				}
+
+			}
+			//阻止冒泡事件的兼容性处理 
+			function stopBubble(e) {
+				if(e && e.stopPropagation) { //非IE 
+					e.stopPropagation();
+				} else { //IE 
+					window.event.cancelBubble = true;
+				}
+			}
+		</script>
+	</body>
+
+</html>

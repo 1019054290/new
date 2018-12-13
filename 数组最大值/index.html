@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function findMaxValue(arr) {
+				let result = 0;
+				if(Array.isArray(arr)) {
+					for(let i = 0; i < arr.length; i++) {
+						result = arr[i] > result ? arr[i] : result;
+					}
+					return result;
+				} else {
+					console.log("不是一个数组")
+					return;
+				}
+			}
+			var arrs = [1, 10, 3, 5, 3, 6, 8]
+			console.log(findMaxValue(arrs))
+
+			function findMax4(arr) {
+				let result = 0;
+				if(Array.isArray(arr)) {
+					result = Math.max(...arr);
+
+					return result;
+				} else {
+					console.error('The parameter arr is not an array');
+					return;
+				}
+			}
+		</script>
+	</body>
+
+</html>

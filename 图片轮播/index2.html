@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.container {
+				position: relative;
+				width: 600px;
+				height: 400px;
+				box-shadow: 0 0 5px green;
+				overflow: hidden;
+			}
+			
+			.wrap {
+				position: absolute;
+				width: 2400px;
+				height: 400px;
+				z-index: 1;
+				transition: all 2s;
+			}
+			
+			.container .wrap img {
+				float: left;
+				width: 600px;
+				height: 400px;
+			}
+			
+			.container .buttons {
+				position: absolute;
+				right: 150px;
+				bottom: 20px;
+				width: 200px;
+				height: 10px;
+				z-index: 2;
+			}
+			
+			.container .buttons span {
+				margin-left: 5px;
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background-color: green;
+				text-align: center;
+				color: white;
+				cursor: pointer;
+			}
+			
+			.container .buttons span.on {
+				background-color: red;
+			}
+			
+			.container .arrow {
+				position: absolute;
+				top: 35%;
+				color: green;
+				padding: 0px 14px;
+				border-radius: 50%;
+				font-size: 50px;
+				z-index: 2;
+				display: none;
+			}
+			
+			.container .arrow_left {
+				left: 10px;
+			}
+			
+			.container .arrow_right {
+				right: 10px;
+			}
+			
+			.container:hover .arrow {
+				display: block;
+			}
+			
+			.container .arrow:hover {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="wrap">
+				<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3472455591,1201313421&fm=173&app=25&f=JPEG?w=218&h=146&s=EADB638506402EFD0291110703007013" alt="">
+				<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3508850691,3007259913&fm=173&app=25&f=JPEG?w=218&h=146&s=6F7063DBEA9031E9CEB5904F03001072" alt="">
+				<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=230662611,3497496991&fm=173&app=25&f=JPEG?w=218&h=146&s=11099B5F644184EE140DB0220300C051" alt="">
+				<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3365258808,3284415062&fm=173&app=25&f=JPEG?w=218&h=146&s=758A26BE465133C0042799670300F03B" alt="">
+			</div>
+			<div class="buttons">
+				<span class="div_btn">1</span>
+				<span class="div_btn">2</span>
+				<span class="div_btn">3</span>
+				<span class="div_btn">4</span>
+			</div>
+			<a title="1" href="javascript:;" class="arrow arrow_left">&lt;</a>
+			<a title="0" href="javascript:;" class="arrow arrow_right">&gt;</a>
+		</div>
+		<script type="text/javascript">
+			var count = 0; //跑动的次数
+			var isgo = false; //动画执行的方向
+			var timer; //定时器对象
+			var ul_img = document.getElementsByClassName("wrap")[0]; //获取图片盒子
+			var arrow = document.getElementsByClassName("arrow"); //获取图片盒子
+			var li_img = document.getElementsByTagName("img");
+			var div_btn = document.getElementsByClassName("div_btn")
+			showtime()
+
+			function showtime() {
+				timer = setInterval(function() {
+					if(isgo == false) {
+						count++;
+						console.log(count)
+						ul_img.style.transform = "translate(" + -600 * count + "px)"
+						if(count >= li_img.length - 1) {
+							count = li_img.length - 1;
+							isgo = true;
+						}
+					} else {
+						count--;
+						ul_img.style.transform = "translate(" + -600 * count + "px)"
+						if(count <= 0) {
+							count = 0
+							isgo = false;
+						}
+					}
+					for (var i = 0; i < div_btn.length; i++){ 
+						div_btn[i].style.backgroundColor = "green";
+					} 
+					div_btn[count].style.backgroundColor = "red";
+				}, 2000)
+			}
+			for(var i = 0; i < arrow.length; i++) {
+				arrow[i].onmousemove = function() {
+					clearInterval(timer)
+				};
+				arrow[i].onmouseout = function() {
+					showtime();
+				}
+				arrow[i].onclick = function() {
+					if(this.title == 0) {
+						count++;
+						if(count > 3) {
+							count = 0;
+						}
+					} else {
+						count--;
+						if(count < 0) {
+							count = 3
+						}
+					}
+					ul_img.style.transform = "translate(" + -600 * count + "px)"
+					for (var i = 0; i < div_btn.length; i++) { 
+						div_btn[i].style.backgroundColor = "green"; 
+					} 
+					div_btn[count].style.backgroundColor = "red";
+				}
+			}
+			div_btn[0].style.backgroundColor = "red";
+			for(var b = 0; b < div_btn.length; b++) {
+				div_btn[b].index = b;
+				div_btn[b].onmousemove = function() {
+					clearInterval(timer);
+					for(var a = 0; a < div_btn.length; a++) {
+						div_btn[a].style.backgroundColor = "green"
+					}
+					div_btn[this.index].style.backgroundColor = "red";
+					if(this.index == 3) {
+						isgo = true;
+					}
+					if(this.index == 0) {
+						isgo = false;
+					}
+					count = this.index;
+					ul_img.style.transform = "translate(" + -600 * this.index + "px)";
+				}
+				div_btn[b].onmouseout = function() {
+					showtime();
+				}
+			}
+		</script>
+	</body>
+
+</html>

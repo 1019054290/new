@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="box">我是父元素</div>
+		<button id="btn">点我添加子元素</button>
+		<br />
+		<script type="text/javascript">
+			function addNode() {
+				let ele = document.createElement("div");
+				let content = document.createTextNode("我是子元素");
+				ele.appendChild(content);
+				document.getElementById("box").appendChild(ele)
+			}
+			document.getElementById("btn").onclick = function() {
+				addNode();
+			}
+		</script>
+		<script>
+			function Cat(name,color){
+
+　　　　this.name=name;
+
+　　　　this.color=color;
+
+　　} 
+var cat1 = new Cat("大毛","黄色");
+
+　　var cat2 = new Cat("二毛","黑色");
+
+　　console.log(cat1); // 大毛
+
+　　console.log(cat1); // 黄色
+		</script>
+		<script type="text/javascript">
+			let arr = [1, 'a', 'a', 'b', 'd', 'e', 'e', 1, 0, 2, 2, 3];
+			//			第一种方法
+			function unique(arr) {
+				return arr.filter(function(item, index, array) {
+					//第一次循环，传入元素1，indexOf(1)的索引为0，而此时1的索引本来就是0，OK，满足。
+					//
+					//第二次循环，传入元素a，indexOf(a)的索引为1，而此时a的索引也是1，OK，也满足。
+					//
+					//第三次循环，传入元素a，indexOf(a)的索引为1，而此时a的索引为2，OK，不满足，被PASS，这里就是巧妙的借用了indexOf始终查找到第一次出现的位置。
+					return array.indexOf(item) === index
+				})
+			}
+			console.log("第一种方法");
+			console.log(unique(arr));
+
+			//			第二种方法
+			function unique2(arr) {
+				//				new Set是对重复元素去重   Array.from可以把Set类型的数据转成数组
+				return Array.from(new Set(arr))
+			}
+			console.log("第二种方法");
+			console.log(unique2(arr))
+			//			第三种方法
+			function unique3(arr) {
+				//				... 展开运算符
+				return [...(new Set(arr))]
+			}
+			console.log("第三种方法");
+			console.log(unique3(arr))
+			//			第四种和第三种是一样的
+			var set = new Set([1, 2, 3, 4, 4, 4, 4, 4, 2, 2, 2])
+			var ssse = [...set]
+			console.log("第四种方法");
+			console.log(ssse)
+			//			第五种方法
+			function unique5(arr) {
+				let newArr = [arr[0]];
+				for(var i = 0; i < arr.length; i++) {
+					let flag = false;
+					for(var j = 0; j < newArr.length; j++) {
+						if(arr[i] == newArr[j]) {
+							flag = true;
+							break;
+						}
+					}
+					if(!flag) {
+						newArr.push(arr[i])
+					}
+				}
+				return newArr;
+			}
+			console.log("第五种方法");
+			console.log(unique5(arr))
+
+			function unique6(arr) {
+				//				先取到数组第一个存在新的数组里,然后去第二个数据和第一个对比,如果不想等就push到新的数组里
+				arr.sort();
+				let newArry = [arr[0]];
+				for(let i = 1; i < arr.length; i++) {
+					if(arr[i] !== newArry[newArry.length - 1]) {
+						newArry.push(arr[i])
+					}
+				}
+				return newArry;
+			}
+			console.log("第六种方法");
+			console.log(unique6(arr))
+
+			function unique7(arr) {
+				let newArr = [];
+				arr.forEach(function(item, index, array) {
+					if(array.indexOf(item) === index) {
+						newArr.push(item)
+					}
+				})
+				return newArr;
+			}
+			console.log("第七种方法")
+			console.log(unique7(arr))
+
+			function unique8(arr) {
+				let result = [];
+				for(let i = 0; i < arr.length; i++) {
+					if(result.indexOf(arr[i]) == -1) {
+						result.push(arr[i])
+					}
+				}
+				return result;
+			}
+			console.log("第八种数组去重")
+			console.log(unique8(arr))
+		</script>
+
+	</body>
+
+</html>
